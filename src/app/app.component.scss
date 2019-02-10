@@ -1,0 +1,80 @@
+.ms-top-bar {
+    height: 64px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;    
+    z-index: 1;
+}
+
+.ms-dropdown {
+    position: relative;
+    display: inline-block;
+    line-height: 64px;
+    padding: 0 16px 0 16px;
+    cursor: pointer;
+
+    .ms-title {
+        position: relative;
+        z-index: 1;
+    }
+
+    .ms-dropdown-content {
+        width: 200px;
+        position: absolute;
+        left: -200px;
+        top: 100%;
+        opacity: 0;
+        transition: all 0.3s;
+        z-index: 0;
+
+        .ms-dropdown-item {
+            line-height: 64px;
+            padding: 0 16px 0 16px;
+            transform-origin: 0 50%;
+            transition: transform 0.2s;
+        }
+
+        .ms-dropdown-item:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .ms-dropdown-content.ms-show {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+.ms-game-info {
+    height: 64px;
+    line-height: 64px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    left: 0;
+}
+.ms-board-container {
+    position: absolute;
+    top:64px;
+    bottom:64px;
+    width:100%;
+
+    .ms-board {
+        .ms-cell {
+            float: left;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            .ms-grass {
+                top: 0;
+                left: 0;
+                transition: all 0.2s;
+            }
+            .ms-grass.ms-hidden {
+                top:-100%;
+                left:-100%;
+            }
+        }
+    }
+}

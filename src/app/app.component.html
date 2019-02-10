@@ -1,0 +1,48 @@
+<div class="ms-top-bar ms-xdark-green">
+    <div class="ms-dropdown">
+        <div class="ms-dropdown-content ms-xxdark-green" [class.ms-show]="showMenu">
+            <div class="ms-dropdown-item" (click)="showMenu=false; newGame('beginner')">Beginner</div>
+            <div class="ms-dropdown-item" (click)="showMenu=false; newGame('intermediate')">Intermediate</div>
+            <div class="ms-dropdown-item" (click)="showMenu=false; newGame('expert')">Expert</div>
+        </div>
+        <span class="ms-title" (click)="showMenu=!showMenu">New Game</span>
+    </div>
+    <!--
+    <div class="w3-dropdown-click">
+        <span class="w3-button" (click)="showMenu=!showMenu">New Game</span>
+        <div [style.display]="showMenu ? 'block' : 'none'" class="w3-dropdown-content w3-bar-block w3-border">
+            <a href="#" class="w3-bar-item w3-button">Beginner</a>
+            <a href="#" class="w3-bar-item w3-button">Intermediate</a>
+            <a href="#" class="w3-bar-item w3-button">Expert</a>
+        </div>
+    </div>
+-->
+</div>
+<div class="ms-game-info ms-xdark-green w3-center">
+    <div *ngIf="context.gameState === 'playing'">
+        <span><i class="fas fa-bomb"></i> {{ minesCount | alpha:3 }}</span>
+        <span class="w3-margin-left"><i class="far fa-clock"></i> {{ time | alpha:3 }}</span>
+    </div>
+    <div *ngIf="context.gameState === 'gameover'">
+        <div>{{ context.victory ? 'Victory!' : 'You lost!' }}</div>
+    </div>
+</div>
+<div class="ms-board-container ms-green">
+    <div class="ms-board w3-display-middle" [style.font-size.px]="cellSize*0.75" [style.width.px]="cellSize * board.width">
+
+        <div *ngFor="let cell of board.cells" class="ms-cell" [class.ms-brown]="checker(cell) === 0"
+            [class.ms-dark-brown]="checker(cell) === 1" [style.width.px]="cellSize" [style.height.px]="cellSize"
+            [style.line-height.px]="cellSize">
+
+            
+            <div class="ms-full-abs ms-grass" [class.ms-hidden]="cell.discovered" [class.ms-green]="checker(cell) === 0" [class.ms-dark-green]="checker(cell) === 1"
+                (click)="discover(cell)" (contextmenu)="flag(cell, $event)">
+                <i *ngIf="cell.flag" class="fas fa-flag"></i>
+            </div>
+
+            <div *ngIf="cell.discovered && cell.mine"><i class="fas fa-bomb"></i></div>
+            <div *ngIf="cell.discovered && !cell.mine && cell.minesAround > 0" [ngClass]="numberColors[cell.minesAround-1]">{{
+                cell.minesAround }}</div>
+        </div>
+    </div>
+</div>
